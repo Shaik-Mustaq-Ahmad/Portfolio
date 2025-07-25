@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap' rel='stylesheet'>
+    <link href='<LINK_TO_DOWNLOADED_FONT_CSS>' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/fca2308447.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="portfolio.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --bg-color: #1f242d;
+            --second-bg-color: #323946;
+            --main-color: #7cf03d;
+            --white-color: #fff;
+            --cyan: #0ef;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--white-color);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--bg-color);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+        }
+
+        .navbar h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .navbar h2 span {
+            color: var(--cyan);
+        }
+
+        .navlist {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            transition: var(--transition);
+        }
+
+        .navlist li a {
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--white-color);
+            position: relative;
+            padding: 5px 10px;
+            transition: var(--transition);
+        }
+
+        .navlist li a::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            left: 0;
+            bottom: -5px;
+            background: var(--cyan);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.4s ease;
+        }
+
+        .navlist li a:hover::after,
+        .navlist li a:focus::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .navlist li a:hover,
+        .navlist li a:focus {
+            color: var(--cyan);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            color: var(--white-color);
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 5px;
+        }
+
+        .hamburger:hover,
+        .hamburger:focus {
+            color: var(--cyan);
+            outline: none;
+        }
+
+        /* Mobile (max-width: 767px) */
+        @media (max-width: 767px) {
+            .navbar {
+                padding: 0.8rem 1.5rem;
+            }
+
+            .navbar h2 {
+                font-size: 1.5rem;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .navlist {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--second-bg-color);
+                padding: 1.5rem 0;
+                text-align: center;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                transform: translateY(-10px);
+                opacity: 0;
+                transition: transform 0.4s ease, opacity 0.4s ease;
+            }
+
+            .navlist.active {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .navlist li {
+                margin: 1rem 0;
+            }
+
+            .navlist li a {
+                font-size: 1.2rem;
+                padding: 10px;
+                display: block;
+            }
+
+            .navlist li a::after {
+                bottom: -2px;
+            }
+        }
+
+        /* Tablet (min-width: 768px to max-width: 1024px) */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+
+            .navbar h2 {
+                font-size: 1.6rem;
+            }
+
+            .navlist {
+                gap: 1.5rem;
+            }
+
+            .navlist li a {
+                font-size: 0.95rem;
+                padding: 5px 8px;
+            }
+        }
+
+        /* Desktop (min-width: 1025px) */
+        @media (min-width: 1025px) {
+            .navbar {
+                padding: 1.2rem 3rem;
+            }
+
+            .navbar h2 {
+                font-size: 2rem;
+            }
+
+            .navlist {
+                gap: 2.5rem;
+            }
+
+            .navlist li a {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <h2><span>M</span><span style="color: #d30606;">u</span><span style="color: blue;">s</span><span style="color: darkmagenta;">T</span><span style="color: coral;">a</span><span style="color: green;">Q</span></h2>
+        <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+            <i class='bx bx-menu'></i>
+        </button>
+        <ul class="navlist">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#PROJECT">Project</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navlist = document.querySelector('.navlist');
+
+        hamburger.addEventListener('click', () => {
+            navlist.classList.toggle('active');
+            const isActive = navlist.classList.contains('active');
+            hamburger.setAttribute('aria-expanded', isActive);
+            hamburger.querySelector('i').classList.toggle('bx-menu');
+            hamburger.querySelector('i').classList.toggle('bx-x');
+        });
+
+        // Close menu on link click (mobile)
+        navlist.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navlist.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.querySelector('i').classList.add('bx-menu');
+                hamburger.querySelector('i').classList.remove('bx-x');
+            });
+        });
+
+        // Close menu on outside click (mobile)
+        document.addEventListener('click', (e) => {
+            if (!navlist.contains(e.target) && !hamburger.contains(e.target) && navlist.classList.contains('active')) {
+                navlist.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.querySelector('i').classList.add('bx-menu');
+                hamburger.querySelector('i').classList.remove('bx-x');
+            }
+        });
+
+        // Close menu on Escape key (accessibility)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navlist.classList.contains('active')) {
+                navlist.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.querySelector('i').classList.add('bx-menu');
+                hamburger.querySelector('i').classList.remove('bx-x');
+                hamburger.focus();
+            }
+        });
+    </script>
+
+    <div class="portfolio-container">
+        <div class="left-container" id="home">
+            <div class="content" id="header">
+                <p class='intro'>Hi! I am <span color="red">Shaik Mustaq Ahmad</span><p>
+                <h1 class="frontend"> 
+                    <span style="--i:3;" data-text="Front End Developer.">Front End Developer.</span>
+                    <span style="--i:2;" data-text="Web Developer.">Web Developer.</span>
+                    <span style="--i:1;" data-text="Developer.">Developer.</span></h1>
+                    <!-- <br><br><br><br> -->
+                <p class="detail">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, laudantium. Aliquam adipisci rerum voluptatum dolor vitae sapiente officiis nesciunt consequuntur.</p>
+                <div class="btn-container">
+                    <button>Hire Me</button>
+                    <button> <a href="#PROJECT"></a> Projects</button>
+                    <br>
+                    <br>
+                     <a href="" download class="btn btn2">Download Resume</a>
+                </div>
+            </div>
+        </div>
+        <div class="right-container"></div>
+        <div class="design">
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+    </div>
+   
+    <div id="PROJECT" class="services">
+        <div class="containers">
+            <h1 class="heading" > My <span>PROJECT</span></h1>
+            <br>
+            <div class="services-list">
+                <div>
+                    <i class='bx bx-code' style='color:#00eeff'> </i>
+                    <h2>Web Developer</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia consequuntur, nemo corrupti quam vero totam, soluta tempore praesentium saepe placeat a enim doloribus dolorem fuga qui blanditiis aliquid laboriosam aperiam.</p>
+                    <a href="#" class="read">more</a>
+                </div>
+                <div>
+                    <i class='bx bx-crop' style='color:#00eeff'> </i>
+                    <h2>Web Developer</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia consequuntur, nemo corrupti quam vero totam, soluta tempore praesentium saepe placeat a enim doloribus dolorem fuga qui blanditiis aliquid laboriosam aperiam.</p>
+                    <a href="#" class="read">more</a>
+                </div>
+                <div>
+                    <i class='bx bxl-apple' style='color:#00eeff'> </i>
+                    <h2>Web Developer</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia consequuntur, nemo corrupti quam vero totam, soluta tempore praesentium saepe placeat a enim doloribus dolorem fuga qui blanditiis aliquid laboriosam aperiam.</p>
+                    <a href="#" class="read" style="align-content: center;">more</a>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+
+    
+    <div class="container2">
+         <h1 class="education"> E<span>ducation</span></h2>
+        <div class="card">
+            <div class="percent" style="--clr:cyan;--num:75;">
+                <div class="dot"></div>
+                <svg>
+                    <circle cx="70" cy="70" r="70"></circle>
+                    <circle cx="70" cy="70" r="70"></circle>
+                </svg>
+                <div class="number">
+                    <h2>75<span>%</span></h2>
+                    <p>B.TECH</p>
+                </div>
+            </div>
+        </div>
+        <!-- Diploma -->
+         <div class="card">
+            <div class="percent" style="--clr:cyan;--num:63;">
+                <div class="dot"></div>
+                <svg>
+                    <circle cx="70" cy="70" r="70"></circle>
+                    <circle cx="70" cy="70" r="70"></circle>
+                </svg>
+                <div class="number">
+                    <h2>63<span>%</span></h2>
+                    <p>Diploma</p>
+                </div>
+            </div>
+        </div>
+        <!-- 10th class -->
+        <div class="card">
+            <div class="percent" style="--clr:cyan;--num:68;">
+                <div class="dot"></div>
+                <svg>
+                    <circle cx="70" cy="70" r="70"></circle>
+                    <circle cx="70" cy="70" r="70"></circle>
+                </svg>
+                <div class="number">
+                    <h2>68<span>%</span></h2>
+                    <p>x class</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+   <div class="h22" id="skills">
+     <h1 class="heading" >  S<span style="color: rgb(0, 255, 13);">KILLS</span></h1>
+    <div class="skills-1">
+   <div class="containerskill">
+    <div class="header-title">
+        <!-- <hr class="line-break" > -->
+        <div class="skills-bar">
+   <!-- Skill contents -->
+    <div class="contents">
+        <h2 class="heading1"> <span style="color: crimson;">Technical Skills</span></h2>
+        <br>
+       <!-- skill 01 -->
+        <div class="skills">
+           <div class="details.html"><i style="color:#c95d2e" class="bx bxl-html5"></i>
+            <span>HTML</span>
+            <span>90%</span>
+           </div>
+           <div class="bar">
+            <div id="html-bar"></div>
+           </div>
+        </div>
+        <!-- skills02 -->
+              <div class="skills">
+           <div class="details.css"><i style="color:#147bbc" class="bx bxl-css3"></i>
+            <span>css</span>
+            <span>70%</span>
+           </div>
+           <div class="bar">
+            <div id="css-bar"></div>
+           </div>
+        </div>
+        <!-- skill 03 -->
+              <div class="skills">
+           <div class="details.javascript"><i style="color:#b0bc1e" class="bx bxl-javascript"></i>
+            <span>javascript</span>
+            <span>60%</span>
+           </div>
+           <div class="bar">
+            <div id="javascript-bar"></div>
+           </div>
+        </div>
+
+    <!-- skill 04 -->
+          <div class="skills">
+           <div class="details.Java"><i style="color:#c32ec9" class="bx bxl-java"></i>
+            <span>Java</span>
+            <span>65%</span>
+           </div>
+           <div class="bar">
+            <div id="Java-bar"></div>
+           </div>
+        </div>
+        <!-- skill 04 -->
+              <div class="skills">
+           <div class="details.react"><i style="color:#69bcbc" class="bx bxl-react"></i>
+            <span>React</span>
+            <span>60%</span>
+           </div>
+           <div class="bar">
+            <div id="react-bar"></div>
+           </div>
+        </div>
+    </div>
+       </div>
+    </div>
+   </div>
+   <!-- communication -->
+    <div class="containerskill" > 
+        <div class="header-title">
+            <div class="header-title">
+                    <div class="skills-bar">
+                           <div class="contents">
+        <h2 class="heading1" ><span style="color: crimson;">Communication Skills</span></h2>
+        <br><br>
+     <div class="skills">
+           <div class="details.creativity">
+            <i class='bx bx-bulb bx-tada' style='color:#d30606' ></i>
+            <span>Creativity</span>
+            <span>80%</span>
+           </div>
+           <div class="bar">
+            <div id="creativity-bar">
+            </div>
+           </div>
+        </div>
+          <div class="skills">
+           <div class="details.communication">
+            <i class='bx  bx-user-voice'  style='color:#050eed' ></i> 
+            <!-- <i style="color:#69bcbc" class="bx bxl-react"></i> -->
+            <span>Communication</span>
+            <span>60%</span>
+           </div>
+           <div class="bar">
+            <div id="communication-bar"></div>
+           </div>
+        </div>
+          <div class="skills">
+           <div class="details.problemsloving">
+            <!-- <i style="color:#69bcbc" class="bx bxl-react"></i> -->
+            <span>Problem Sloving</span>
+            <span>90%</span>
+           </div>
+           <div class="bar">
+            <div id="problemsloving-bar"></div>
+           </div>
+        </div>
+          <div class="skills">
+           <div class="details.teamwork">
+            <i class='bx  bx-group'  style='color:#08eda1' > </i> 
+            <!-- <i style="color:#69bcbc" class="bx bxl-react"></i> -->
+            <span>Team Work</span>
+            <span>85%</span>
+           </div>
+           <div class="bar">
+            <div id="teamwork-bar"></div>
+           </div>
+        </div>
+        </div>
+        </div>
+     </div>
+     </div>
+     </div>
+     </div>
+     </div>
+     
+
+<article>
+     <div class="hell">
+   <div class="about" id="about">
+    <div class="main">
+        <img src="c:\Users\asifs\Downloads\michael-henry-5OyGRn_r9Y4-unsplash.jpg" alt="image">
+        <div class="about-text">
+            <h2>About Me</h2>
+            <h4> Developer <span style="color: red;">& Designer</span></h4>
+            <p>I am a Front-end web developer. I can provide clean code and pixel perfect design.
+                I am also make the website more & more interactive with web animations.
+                A responsive design makes your website accessible to all users,regardless of their device.
+            </p>
+           <a href="#contact"> <button Type="button" class="but">Let's Talk</button></a>
+
+        </div>
+    </div> 
+    </div> 
+    </div>
+    </article>
+
+<footer>
+ <div id="contact" class="contact">
+        <div class="container-last">
+            <h1 class="heading" > Contact<span>Me</span></h1>
+            <!-- <h1 class="subtitle">Contact Me</h1> -->
+            <div class="row">
+                <div class="leftcol">
+                    <p><i class="fa-solid fa-envelope"></i> mustaqshaik555@gmail.com</p>
+                    <p><i class="fa-solid fa-phone"></i> 7799118915</p>
+                    <div class="social-icons">
+                        <a href="" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="" target="_blank"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                    <a href="" download class="btn btn2" target="_blank">Download Resume</a>
+                </div>
+                 <div class="rightcol">
+                    <form name="submit-to-google-sheet">
+                        <input type="text" name="Name" placeholder="Your Name" required>
+                        <input type="email" name="Email" placeholder="Your Email" required>
+                        <textarea name="Message" rows="1" placeholder="Your Message"></textarea>
+                        <button type="submit" class="btn btn2">Submit</button>
+                    </form>
+                </div> 
+            </div>
+        </div>
+    </div>
+    </footer>
+
+
+    
+  
+</body>
+</html>
